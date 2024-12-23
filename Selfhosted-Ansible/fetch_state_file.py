@@ -1,7 +1,7 @@
 from azure.storage.blob import BlobClient
 
 # Replace with your SAS URL
-sas_url = "https://automatingstuffsairaj.blob.core.windows.net/tfstate/terraform.tfstate?sp=r&st=2024-12-15T09:15:36Z&se=2025-01-11T17:15:36Z&spr=https&sv=2022-11-02&sr=b&sig=tlVwpW%2By97Lj6mOd%2F9xeqnfpTj1PakV1CLUTSrZexZk%3D"
+sas_url = "INSERT YOUR SAS URL HERE IF YOUR REPOSITORY IS PRIVATE OTHERWISE USE AZURE IDENTITY OR KEY VAULT TO STORE SAS TOKEN" # SAS URL to the state file in the Azure Blob Storage
 local_file_path = "state_file.tfstate"  # Path to save the downloaded file
 
 try:
