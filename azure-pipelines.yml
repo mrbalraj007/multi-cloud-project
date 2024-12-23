@@ -1,0 +1,221 @@
+# trigger:
+#   branches:
+#     include:
+#       - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  terraformVersion: '1.10.3'
+  azureRmResourceGroup: 'automating-stuff-rg'
+  azureRmStorageAccountName: 'automatingstuffsairaj'
+  azureRmContainerName: 'tfstate'
+  azureRmStateKey: 'terraform.tfstate'
+  buildConfiguration: 'Release'
+
+stages:
+ - stage: Build
+   displayName: 'Build the application'
+
+   jobs:
+   - job: BuildandPublish
+     displayName: 'Build and Publish'
+     steps:
+     - checkout: self
+     
+     - task: UseDotNet@2
+       inputs:
+        version: '8.x'
+
+     - task: NuGetAuthenticate@1
+    
+     - task: DotNetCoreCLI@2
+       inputs:
+        command: 'restore'
+        projects: '**/*.csproj'    #'$(System.DefaultWorkingDirectory)/*.csproj'
+        feedsToUse: 'select'
+
+     - task: DotNetCoreCLI@2
+       displayName: Build Application
+       inputs:
+         command: 'build'
+         projects: '**/*.csproj'
+         arguments: '--configuration $(buildConfiguration)'
+
+    #  - task: CopyFiles@2
+    #    displayName: 'Copy bin Files to Artifact Staging Directory'
+    #    inputs:
+    #      SourceFolder: '$(System.DefaultWorkingDirectory)'
+    #      Contents: '**/bin/**'
+    #      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+    #  - task: CopyFiles@2
+    #    displayName: 'Copy media Files to Artifact Staging Directory'
+    #    inputs:
+    #      SourceFolder: '$(System.DefaultWorkingDirectory)'
+    #      Contents: '**/wwwroot/**'
+    #      TargetFolder: '$(Build.ArtifactStagingDirectory)/bin/Release/net8.0/'
+
+      
+     - task: DotNetCoreCLI@2
+       displayName: '.NET Publish'
+       inputs:
+        command: 'publish'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+     - task: PublishPipelineArtifact@1
+       displayName: 'Publish Artifact'
+       inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'dotnet-application'
+        publishLocation: 'pipeline'
+
+    #  - task: PublishBuildArtifacts@1
+    #    displayName: Publish Artifact     Remove this in case the above block does the work
+    #    inputs:
+    #      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    #      ArtifactName: 'dotnet-application'
+    #      publishLocation: 'Container'
+
+         
+  
+  
+# - stage: Cloud_Infra
+#   displayName: 'Provision Azure & AWS Infra'
+#   #dependsOn: Build
+#   #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+
+#   pool:
+#     vmImage: ubuntu-latest
+#   jobs:
+#     - job: TerraformSetup
+#       displayName: 'Terraform process'
+#       steps:
+#       - task: TerraformCLI@2
+#         inputs:
+#           command: 'version'
+#           workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+#           commandOptions: '--version'
+#           allowTelemetryCollection: true
+
+
+#       # - task: DownloadSecureFile@1
+#       #   name: DownloadPublicKey
+#       #   inputs:
+#       #     secureFile: 'sai.pub' # Name of the uploaded secure file
+
+#       # - script: |
+#       #     mkdir -p $(Agent.TempDirectory)/keys
+#       #     cp $(DownloadPublicKey.secureFilePath) $(Agent.TempDirectory)/keys/sai.pub
+#       #   displayName: 'Prepare Public Key'
+
+
+#       - task: TerraformCLI@2
+#         displayName: 'Terraform init'
+#         inputs:
+#           command: 'init'
+#           workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+#           backendType: 'azurerm'
+#           backendServiceArm: 'Azure-service-connection'
+#           backendAzureRmResourceGroupName: 'automating-stuff-rg'
+#           backendAzureRmStorageAccountName: 'automatingstuffsairaj'
+#           backendAzureRmContainerName: 'tfstate'
+#           backendAzureRmKey: 'terraform.tfstate'
+#           allowTelemetryCollection: true
+
+#       #- checkout: self
+#       - task: TerraformCLI@2
+#         inputs:
+#           command: 'plan'
+#           workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+#           environmentServiceName: 'Azure-service-connection'
+#           allowTelemetryCollection: true
+#           providerServiceAws: 'AWS-service-connection1'
+#           providerAwsRegion: 'us-east-1'
+#         displayName: 'Terraform Plan'
+  
+#       # - task: TerraformCLI@2
+#       #   inputs:
+#       #     command: 'apply'
+#       #     workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+#       #     commandOptions: '-auto-approve -var public_key_path=$(Agent.TempDirectory)/keys/sai.pub'
+
+#       - task: TerraformCLI@2
+#         inputs:
+#           command: 'apply'
+#           workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+#           environmentServiceName: 'Azure-service-connection'
+#           commandOptions: '-auto-approve'
+#           allowTelemetryCollection: true
+#           providerServiceAws: 'AWS-service-connection1'
+#           providerAwsRegion: 'us-east-1'
+      
+#       - task: TerraformCLI@2
+#         displayName: 'Terraform Output'
+#         inputs:
+#           command: 'output'
+#           workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+#           environmentServiceName: 'Azure-service-connection'
+#         continueOnError: false
+
+      
+#       - task: DownloadSecureFile@1
+#         displayName: 'Download private key'
+#         inputs:
+#           secureFile: 'sai'
+#       - task: DownloadSecureFile@1
+#         displayName: 'Download public key'
+#         inputs:
+#           secureFile: 'sai.pub'
+     
+#       - task: Bash@3
+#         displayName: 'Generate Dynamic Inventory'
+#         inputs:
+#           targetType: 'inline'
+#           script: |
+#             terraform_output=$(terraform output -json)
+#             azure_vms=$(echo "$terraform_output" | jq -r '.ansible_inventory.value.azure_vms[]')
+#             aws_vms=$(echo "$terraform_output" | jq -r '.ansible_inventory.value.aws_vms[]')
+
+#             inventory_file="dynamic_inventory.ini"
+#             echo "[azure]" > $inventory_file
+#             for vm in $azure_vms; do
+#               echo "$vm" >> $inventory_file
+#             done
+
+#             echo "[aws]" >> $inventory_file
+#             for vm in $aws_vms; do
+#               echo "$vm" >> $inventory_file
+#             done
+
+#             echo "Dynamic inventory generated at: $inventory_file"
+
+#       - task: Bash@3
+#         displayName: 'Setup SSH Keys on Managed Nodes'
+#         inputs:
+#           targetType: 'inline'
+#           script: |
+#             # Ensure the private key is in the correct location
+#             mkdir -p ~/.ssh
+#             echo "$(cat $(Agent.WorkFolder)/sai)" > ~/.ssh/sai
+#             echo "$(cat $(Agent.WorkFolder)/sai.pub)" > ~/.ssh/sai.pub
+#             chmod 600 ~/.ssh/sai
+
+#             # Define the public key path
+#             public_key_path="~/.ssh/sai.pub"
+
+#             # Ensure the public key exists
+#             if [ ! -f "$public_key_path" ]; then
+#               echo "Public key not found at $public_key_path. Exiting."
+#               exit 1
+#             fi
+
+#             # Loop through inventory and set up passwordless authentication
+#             inventory_file="dynamic_inventory.ini"
+#             while IFS= read -r node; do
+#               if [[ $node == \[* ]]; then continue; fi
+#               echo "Setting up SSH key for $node..."
+#               ssh-copy-id -f "-i $public_key_path" $node
+#             done < $inventory_file
