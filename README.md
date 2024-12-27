@@ -3,7 +3,7 @@
 ## Introduction 🌐
 This project demonstrates the automation of infrastructure provisioning and application deployment across **AWS** and **Azure** using **Terraform** and **Ansible**. The goal is to provide a seamless deployment of an ASP.NET Core application across multiple cloud platforms, leveraging CI/CD pipelines in Azure DevOps.
 
-## **Problem Statement** 😵‍💫  
+## **Problem Statement** 🤔
 Organizations often face challenges when deploying applications across cloud providers like **AWS** and **Azure**, including:  
 - Managing infrastructure consistently.  
 - Handling dynamic inventory updates.  
