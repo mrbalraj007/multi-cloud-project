@@ -13,10 +13,7 @@ This project demonstrates the automation of infrastructure provisioning and appl
 ## Architecture Diagrams 🖼️
 
 ### High-Level Design
-![High-Level Design](https://via.placeholder.com/600x400.png?text=High-Level+Design+Diagram)
 ![Multi-cloud drawio (2)](https://github.com/user-attachments/assets/c7fd62a6-c3c1-42d9-8aa2-f43b7ed49971)
-![Multi-cloud drawio (1)](https://github.com/user-attachments/assets/e8d700cc-bb18-4566-a43a-39c3f3fae5da)
-![Multi-cloud drawio](https://github.com/user-attachments/assets/37439e93-dfd3-40b5-acc2-5b55bfd91ec1)
 
 ### Low-Level Design
 ![Low-Level Design](https://via.placeholder.com/600x400.png?text=Low-Level+Design+Diagram)
