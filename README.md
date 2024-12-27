@@ -13,7 +13,6 @@ This project demonstrates the automation of infrastructure provisioning and appl
 ## Architecture Diagrams 🖼️
 
 ### High-Level Design
-![Multi-cloud drawio (2)](https://github.com/user-attachments/assets/c7fd62a6-c3c1-42d9-8aa2-f43b7ed49971)
 <img width="781" alt="2024-12-28 00_10_16-Multi-cloud drawio (3)" src="https://github.com/user-attachments/assets/521546f4-6396-4644-b561-bfdb4f3f86f5" />
 
 
