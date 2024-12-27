@@ -6,18 +6,45 @@ This project demonstrates the automation of infrastructure provisioning and appl
 ## Features ✨
 - **Infrastructure-as-Code (IaC):** Automated provisioning of cloud resources with Terraform.
 - **Cross-Cloud Deployment:** Simultaneous deployment to AWS and Azure.
-- **Configuration Management:** Ansible scripts for dynamic inventory creation and server configuration.
+- **Configuration Management:** Ansible scripts for **dynamic inventory** creation and server configuration.
 - **CI/CD Integration:** Azure DevOps pipeline for end-to-end automation.
 - **Secure & Scalable:** Uses SSH for secure communication and scales effortlessly across clouds.
+
+## **Tools & Technologies Used** 🛠️
+### **1. Terraform**
+- **Purpose**: Provision cloud infrastructure on AWS and Azure.
+- **Features**:
+  - State management with Azure Blob Storage.
+  - Automated provisioning of compute, network, and security resources.
+- **Highlights**:
+  - Creates AWS EC2 instances and Azure VMs with security rules for SSH and application traffic.
+
+### **2. Ansible**
+- **Purpose**: Configuration management and application deployment.
+- **Features**:
+  - Automates secure SSH setup and `.NET` application deployment.
+  - Dynamic inventory for managing nodes across multiple clouds.
+
+### **3. Azure DevOps**
+- **Purpose**: Manage CI/CD pipelines.
+- **Features**:
+  - Multi-stage pipelines for building, provisioning, and deploying.
+  - Artifact management for `.NET` applications.
+  - Secure files feature to pass secrets, tokens, ssh keys, etc without hardcoding credentials in the scripts.
+  - Service connection to Azure, AWS enabling seamless authentication to both the cloud providers. Leveraging service connections to run terraform scripts was a game changer.
+
+### **4. ASP.NET Core**
+- **Purpose**: Backend application for deployment.
+- **Features**:
+  - Runs on port `5000` across cloud instances.
+  - Deployed as a Linux service for high availability.
+
+---
 
 ## Architecture Diagrams 🖼️
 
 ### High-Level Design
 <img width="781" alt="2024-12-28 00_10_16-Multi-cloud drawio (3)" src="https://github.com/user-attachments/assets/521546f4-6396-4644-b561-bfdb4f3f86f5" />
-
-
-### Low-Level Design
-![Low-Level Design](https://via.placeholder.com/600x400.png?text=Low-Level+Design+Diagram)
 
 ## Prerequisites ✅
 - **Azure DevOps Account:** To set up CI/CD pipelines.
@@ -62,8 +89,6 @@ This project demonstrates the automation of infrastructure provisioning and appl
 4. **Dynamic Inventory:**
    - Automate IP discovery and SSH key management.
 
-
-
 ## Challenges Faced 😅
 - Resolving SSH known hosts conflicts.
 - Managing Terraform state files across multiple cloud platforms.
@@ -73,10 +98,12 @@ This project demonstrates the automation of infrastructure provisioning and appl
 - Importance of using secure secrets management.
 - Effective use of Terraform for multi-cloud setups.
 - Leveraging CI/CD pipelines for efficient workflows.
+- Using Self hosted agent to run ansible scripts instead of Microsoft hosted agent. Due to ephemeral nature of Microsoft hosted agent it was complex to run ansible tasks on remote nodes. 
 
-## Future Enhancements 🚀
+## Potential Enhancements 🚀
 - Add Kubernetes support for containerized deployments.
-- Use HashiCorp Vault for better secrets management.
+- Application monitoring.
+- Add load balancer to distribute load between both the cloud providers.
 - Implement cost-optimization strategies using FinOps tools.
 
 ---
