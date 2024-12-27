@@ -19,31 +19,13 @@ This project demonstrates the automation of infrastructure provisioning and appl
 ![Low-Level Design](https://via.placeholder.com/600x400.png?text=Low-Level+Design+Diagram)
 
 ## Prerequisites ✅
-- **GitHub Repository:** Store your Terraform and Ansible scripts.
 - **Azure DevOps Account:** To set up CI/CD pipelines.
 - **AWS Account:** For deploying resources.
 - **Azure Subscription:** For provisioning resources.
 - **Terraform & Ansible:** Installed locally for testing.
 - **SSH Key Pair:** For secure connections.
+- **Azure DevOps Server installed locally on Linux**: To run self hosted agent for ansible scripts.
 
-## Directory Structure 📁
-```
-.
-├── Pages
-│   └── Shared
-├── Selfhosted-Ansible
-│   ├── add_to_known_hosts.py
-│   ├── fetch_state_file.py
-│   └── parse_ips_from_state.py
-├── Terraform
-│   ├── aws.tf
-│   ├── azure.tf
-│   └── variables.tf
-└── wwwroot
-    ├── css
-    ├── js
-    └── lib
-```
 
 ## Step-by-Step Guide 🛠️
 
@@ -68,7 +50,7 @@ This project demonstrates the automation of infrastructure provisioning and appl
 
 ## How It Works 🛠️
 1. **CI/CD Pipeline:**
-   - Code is pushed to the `stage` branch in GitHub.
+   - Code is pushed to the `main` branch in Azure Repos.
    - Azure DevOps triggers a pipeline to build the application and apply Terraform scripts.
 2. **Terraform Scripts:**
    - Create AWS EC2 instances and Azure VMs.
@@ -79,69 +61,7 @@ This project demonstrates the automation of infrastructure provisioning and appl
 4. **Dynamic Inventory:**
    - Automate IP discovery and SSH key management.
 
-## Sample Terraform Code for AWS and Azure 🌍
 
-### AWS Security Group Configuration
-```hcl
-resource "aws_security_group" "my_sg" {
-  name        = "allow_app"
-  description = "Allow app and SSH traffic"
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 5000
-    to_port     = 5000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-```
-
-### Azure NSG Configuration
-```hcl
-resource "azurerm_network_security_group" "my_nsg" {
-  name                = "myAppNSG"
-  location            = azurerm_resource_group.my_rg.location
-  resource_group_name = azurerm_resource_group.my_rg.name
-
-  security_rule {
-    name                       = "allow_ssh"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "allow_app"
-    priority                   = 200
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "5000"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-}
-```
 
 ## Challenges Faced 😅
 - Resolving SSH known hosts conflicts.
@@ -159,5 +79,3 @@ resource "azurerm_network_security_group" "my_nsg" {
 - Implement cost-optimization strategies using FinOps tools.
 
 ---
-Enjoy building multi-cloud applications! 🌟
-
