@@ -3,6 +3,18 @@
 ## Introduction 🌐
 This project demonstrates the automation of infrastructure provisioning and application deployment across **AWS** and **Azure** using **Terraform** and **Ansible**. The goal is to provide a seamless deployment of an ASP.NET Core application across multiple cloud platforms, leveraging CI/CD pipelines in Azure DevOps.
 
+## **Problem Statement** 😵‍💫  
+Organizations often face challenges when deploying applications across cloud providers like **AWS** and **Azure**, including:  
+- Managing infrastructure consistently.  
+- Handling dynamic inventory updates.  
+- Ensuring secure and automated deployment processes.
+
+## **Solution** 💡  
+This project solves the problem by:  
+1. Using **Terraform** for provisioning consistent infrastructure.  
+2. Leveraging **Ansible** for automating server configurations and deployments.  
+3. Implementing CI/CD pipelines with **Azure DevOps** for seamless integration and delivery.
+
 ## Features ✨
 - **Infrastructure-as-Code (IaC):** Automated provisioning of cloud resources with Terraform.
 - **Cross-Cloud Deployment:** Simultaneous deployment to AWS and Azure.
@@ -52,8 +64,7 @@ This project demonstrates the automation of infrastructure provisioning and appl
 - **SSH Key Pair:** For secure connections.
 - **Azure DevOps Server installed locally on Linux**: To run self hosted agent for ansible scripts.
 
-
-## Step-by-Step Guide 🛠️
+## Step-by-Step Guide 🪜
 
 ### 1. Set Up Terraform Backend
 - Configure the backend for **Azure Blob Storage** to store the Terraform state file securely.
@@ -87,12 +98,12 @@ This project demonstrates the automation of infrastructure provisioning and appl
 4. **Dynamic Inventory:**
    - Automate IP discovery and SSH key management.
 
-## Challenges Faced 😅
+## Challenges Faced 💪
 - Resolving SSH known hosts conflicts.
 - Managing Terraform state files across multiple cloud platforms.
 - Debugging Ansible dynamic inventory scripts.
 
-## Learnings 🎓
+## Learnings 🌿
 - Importance of using secure secrets management.
 - Effective use of Terraform for multi-cloud setups.
 - Leveraging CI/CD pipelines for efficient workflows.
