@@ -39,8 +39,6 @@ This project demonstrates the automation of infrastructure provisioning and appl
   - Runs on port `5000` across cloud instances.
   - Deployed as a Linux service for high availability.
 
----
-
 ## Architecture Diagrams 🖼️
 
 ### High-Level Design
