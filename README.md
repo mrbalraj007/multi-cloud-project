@@ -1,127 +1,163 @@
-# Multi-Cloud Deployment Project 🚀
+# **Multi-Cloud Deployment Project** 🚀
 
-## Introduction 🌐
-This project demonstrates the automation of infrastructure provisioning and application deployment across **AWS** and **Azure** using **Terraform** and **Ansible**. The goal is to provide a seamless deployment of an ASP.NET Core application across multiple cloud platforms, leveraging CI/CD pipelines in Azure DevOps.
+## **Introduction** 🌐
+This project demonstrates the **automation of infrastructure provisioning** and **application deployment** across **AWS** and **Azure** using **Terraform** and **Ansible**. The goal is to enable seamless deployment of an **ASP.NET Core application** across multiple cloud platforms, leveraging robust **CI/CD pipelines** in **Azure DevOps**.
+
+---
 
 ## **Problem Statement** 🤔
-Organizations often face challenges when deploying applications across cloud providers like **AWS** and **Azure**, including:  
-- Managing infrastructure consistently.  
-- Handling dynamic inventory updates.  
-- Ensuring secure and automated deployment processes.
+Organizations face several challenges when deploying applications across cloud providers like **AWS** and **Azure**:  
+- Ensuring consistent infrastructure management.  
+- Handling dynamic inventory updates for scaling and maintenance.  
+- Implementing secure and automated deployment processes.
 
-## **Solution** 💡  
-This project solves the problem by:  
-1. Using **Terraform** for provisioning consistent infrastructure.  
-2. Leveraging **Ansible** for automating server configurations and deployments.  
-3. Implementing CI/CD pipelines with **Azure DevOps** for seamless integration and delivery.
+---
 
-## Features ✨
-- **Infrastructure-as-Code (IaC):** Automated provisioning of cloud resources with Terraform.
-- **Cross-Cloud Deployment:** Simultaneous deployment to AWS and Azure.
-- **Configuration Management:** Ansible scripts for **dynamic inventory** creation and server configuration.
-- **CI/CD Integration:** Azure DevOps pipeline for end-to-end automation.
-- **Secure & Scalable:** Uses SSH for secure communication and scales effortlessly across clouds.
+## **Solution** 💡
+This project addresses these challenges by:  
+1. **Using Terraform** for consistent and automated infrastructure provisioning.  
+2. **Leveraging Ansible** to automate server configurations and application deployment.  
+3. **Integrating CI/CD pipelines** with Azure DevOps for seamless workflows and deployments.
+
+---
+
+## **Features** ✨
+- **Infrastructure-as-Code (IaC):** Automated provisioning of cloud resources using Terraform.  
+- **Cross-Cloud Deployment:** Simultaneous deployment to AWS and Azure.  
+- **Configuration Management:** Dynamic inventory creation and server configuration via Ansible.  
+- **CI/CD Integration:** Automated end-to-end pipelines in Azure DevOps.  
+- **Secure & Scalable:** Uses SSH for secure communication and enables effortless scalability.
+
+---
 
 ## **Tools & Technologies Used** 🛠️
+
 ### **1. Terraform**
-- **Purpose**: Provision cloud infrastructure on AWS and Azure.
-- **Features**:
-  - State management with Azure Blob Storage.
-  - Automated provisioning of compute, network, and security resources.
-- **Highlights**:
-  - Creates AWS EC2 instances and Azure VMs with security rules for SSH and application traffic.
+- **Purpose:** Provision infrastructure on AWS and Azure.  
+- **Features:**  
+  - State management using Azure Blob Storage.  
+  - Automated creation of compute, network, and security resources.  
+- **Highlights:**  
+  - Provisions AWS EC2 instances and Azure VMs with required security rules.
 
 ### **2. Ansible**
-- **Purpose**: Configuration management and application deployment.
-- **Features**:
-  - Automates secure SSH setup and `.NET` application deployment.
-  - Dynamic inventory for managing nodes across multiple clouds.
+- **Purpose:** Configuration management and application deployment.  
+- **Features:**  
+  - Automates secure SSH setup and `.NET` application deployment.  
+  - Generates dynamic inventory to manage nodes across multiple clouds.
 
 ### **3. Azure DevOps**
-- **Purpose**: Manage CI/CD pipelines.
-- **Features**:
-  - Multi-stage pipelines for building, provisioning, and deploying.
-  - Artifact management for `.NET` applications.
-  - Secure files feature to pass secrets, tokens, ssh keys, etc without hardcoding credentials in the scripts.
-  - Service connection to Azure, AWS enabling seamless authentication to both the cloud providers. Leveraging service connections to run terraform scripts was a game changer.
+- **Purpose:** Manage CI/CD pipelines.  
+- **Features:**  
+  - Multi-stage pipelines for building, provisioning, and deploying.  
+  - Artifact management for `.NET` applications.  
+  - Secure file handling to manage secrets, tokens, and SSH keys.  
+  - Service connections to Azure and AWS for seamless authentication.
 
-### **4. ASP.NET Core**
-- **Purpose**: Backend application for deployment.
-- **Features**:
-  - Runs on port `5000` across cloud instances.
+### **4. Azure Entra ID**  
+- **Purpose:** Identity and access management.  
+- **Features:**  
+  - App registration for secure API communication.  
+  - Role-based access control (RBAC) for managing infrastructure and pipelines.  
+  - Authentication and authorization for CI/CD workflows.
+
+### **5. ASP.NET Core**
+- **Purpose:** Backend application for deployment.  
+- **Features:**  
+  - Runs on **port 5000** on AWS and Azure instances.  
   - Deployed as a Linux service for high availability.
 
-### **5. ChatGPT**
+---
 
+## **Architecture Diagrams** 🖼️
 
-## Architecture Diagrams 🖼️
-This diagram illustrates the seamless integration of CI/CD pipelines with multi-cloud infrastructure:
-### High-Level Design
-<img width="781" alt="2024-12-28 00_10_16-Multi-cloud drawio (3)" src="https://github.com/user-attachments/assets/521546f4-6396-4644-b561-bfdb4f3f86f5" />
+### **High-Level Design**  
+Illustrates CI/CD integration with multi-cloud infrastructure.  
+<img width="781" alt="2024-12-28 00_10_16-Multi-cloud drawio (3)" src="https://github.com/user-attachments/assets/c7065e0a-45d7-46f4-96ce-2d55d0bb85da" />
 
-## Prerequisites ✅
-- **Azure DevOps Account:** To set up CI/CD pipelines.
-- **AWS Account:** For deploying resources.
-- **Azure Subscription:** For provisioning resources.
-- **Terraform & Ansible:** Installed locally for testing.
-- **SSH Key Pair:** For secure connections.
-- **Azure DevOps Server installed locally on Linux**: To run self hosted agent for ansible scripts.
+---
 
-## Step-by-Step Guide 🪜
+## **Prerequisites** ✅
+- **Azure DevOps Account:** For managing CI/CD pipelines.  
+- **AWS Account:** For provisioning AWS resources.  
+- **Azure Subscription:** For deploying Azure resources.  
+- **Terraform & Ansible:** Installed locally for testing.  
+- **SSH Key Pair:** For secure remote connections.  
+- **Azure DevOps Self-Hosted Agent:** To execute Ansible tasks on remote nodes.
 
-### 1. Set Up Terraform Backend
-- Configure the backend for **Azure Blob Storage** to store the Terraform state file securely.
+---
 
-### 2. Build application and publish artifact
-- On Successful build run of the Microsoft hosted agent, the application is packaged and published to pipeline artifact.
+## **Step-by-Step Guide** 🪜
 
-### 3. Provision Infrastructure
-- **AWS:** Launch EC2 instances, configure security groups, and attach public IPs.
-- **Azure:** Provision Virtual Machines, associate NSGs, and allocate public IPs.
+### **1. Set Up Terraform Backend**
+- Configure **Azure Blob Storage** as the backend to securely store the Terraform state file.
 
-### 4. Configure CI/CD Pipeline
-- **Build Pipeline (Microsoft hosted agent):** Build and package the ASP.NET application.
-- **Terraform Pipeline (Microsoft hosted agent):** Run Terraform to provision infrastructure.
-- **Self-hosted Ansible Pipeline (Self hosted agent):** Configure remote nodes, install sdks and runtime, deploy app running as a service in the background.
+### **2. Build Application and Publish Artifact**
+- Use the Azure DevOps pipeline to build and package the ASP.NET Core application.  
+- Publish the build artifact to Azure Pipelines.
 
-### 5. Use Ansible for Configuration Management
-- Dynamic inventory creation using Python scripts.
-- Add VMs to the known hosts file for secure SSH communication.
+### **3. Provision Infrastructure**
+- **AWS:**  
+  - Launch EC2 instances.  
+  - Configure security groups to open ports for SSH and application access.  
+- **Azure:**  
+  - Provision Virtual Machines.  
+  - Associate Network Security Groups (NSGs) to open necessary ports.  
 
-### 6. Application Deployment
-- Deploy the ASP.NET Core app on VMs using Ansible playbooks.
-- Expose the application on **port 5000** for public access.
+### **4. Configure CI/CD Pipelines**
+- **Build Pipeline (Microsoft-hosted agent):** Builds the ASP.NET Core application.  
+- **Terraform Pipeline (Microsoft-hosted agent):** Provisions infrastructure.  
+- **Ansible Pipeline (Self-hosted agent):** Deploys the application.
 
-## How It Works 🛠️
-1. **CI/CD Pipeline:**
-   - Code is pushed to the `main` branch in Azure Repos.
-   - Azure DevOps triggers a pipeline to build the application and apply Terraform scripts.
-2. **Terraform Scripts:**
-   - Create AWS EC2 instances and Azure VMs.
-   - Open necessary ports in AWS Security Groups and Azure NSGs.
-3. **Ansible Playbooks:**
-   - Configure the VMs and deploy the app.
-   - Manage dynamic inventory using `parse_ips_from_state.py`.
-4. **Dynamic Inventory:**
-   - Automate IP discovery and SSH key management.
+### **5. Use Ansible for Configuration Management**
+- Dynamically generate inventory using Python scripts.  
+- Add VMs to the `known_hosts` file for secure SSH communication.  
 
-## Challenges Faced 💪
-- Resolving SSH known hosts conflicts.
-- Managing Terraform state files across multiple cloud platforms.
-- Debugging Ansible dynamic inventory scripts.
-- Setting up passwordless authentication for ansible on remote nodes using Microsoft hosted agents.
-- Finding a way to run application as a service in the background and not letting the pipeline run for a long time as the application is running in the foreground. 
+### **6. Deploy the Application**
+- Use Ansible playbooks to:  
+  - Deploy the ASP.NET Core application.  
+  - Configure it to run as a Linux service on **port 5000**.
 
-## Learnings 🌿
-- Importance of using secure secrets management.
-- Effective use of Terraform for multi-cloud setups.
-- Leveraging CI/CD pipelines for efficient workflows.
-- Using Self hosted agent to run ansible scripts instead of Microsoft hosted agent. Due to ephemeral nature of Microsoft hosted agent it was complex to run ansible tasks on remote nodes. 
+---
 
-## Potential Enhancements 🚀
-- Add Kubernetes support for containerized deployments.
-- Application monitoring.
-- Add load balancer to distribute load between both the cloud providers.
-- Implement cost-optimization strategies using FinOps tools.
+## **How It Works** 🛠️
+1. **CI/CD Pipelines:**  
+   - Code is pushed to the `main` branch.  
+   - Azure DevOps triggers build, provisioning, and deployment workflows.
+
+2. **Terraform Scripts:**  
+   - Provision AWS and Azure infrastructure.  
+   - Configure security rules for application access.
+
+3. **Ansible Playbooks:**  
+   - Configure VMs, install dependencies, and deploy the application.  
+   - Manage dynamic inventory using Python scripts.
+
+4. **Dynamic Inventory:**  
+   - Automates IP discovery and SSH key management for seamless scaling.
+
+---
+
+## **Challenges Faced** 💪
+- Managing Terraform state files in a multi-cloud environment.  
+- Debugging Ansible scripts for dynamic inventory creation.  
+- Establishing passwordless SSH authentication on ephemeral agents.  
+- Configuring the application to run as a background service for production readiness.  
+
+---
+
+## **Learnings** 🌿
+- Importance of **secure secrets management** in CI/CD pipelines.  
+- Using **Terraform** to manage multi-cloud infrastructure efficiently.  
+- Leveraging **Azure Entra ID** for app registration and RBAC.  
+- Benefits of self-hosted agents for running Ansible tasks.  
+
+---
+
+## **Potential Enhancements** 🚀
+- Add Kubernetes support for containerized application deployment.  
+- Implement monitoring with tools like **Prometheus** and **Grafana**.  
+- Use a load balancer for efficient traffic distribution.  
+- Explore cost optimization with **FinOps** practices.
 
 ---
