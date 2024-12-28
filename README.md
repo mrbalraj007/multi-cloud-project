@@ -51,8 +51,11 @@ This project solves the problem by:
   - Runs on port `5000` across cloud instances.
   - Deployed as a Linux service for high availability.
 
-## Architecture Diagrams 🖼️
+### **5. ChatGPT**
 
+
+## Architecture Diagrams 🖼️
+This diagram illustrates the seamless integration of CI/CD pipelines with multi-cloud infrastructure:
 ### High-Level Design
 <img width="781" alt="2024-12-28 00_10_16-Multi-cloud drawio (3)" src="https://github.com/user-attachments/assets/521546f4-6396-4644-b561-bfdb4f3f86f5" />
 
@@ -69,19 +72,23 @@ This project solves the problem by:
 ### 1. Set Up Terraform Backend
 - Configure the backend for **Azure Blob Storage** to store the Terraform state file securely.
 
-### 2. Provision Infrastructure
+### 2. Build application and publish artifact
+- On Successful build run of the Microsoft hosted agent, the application is packaged and published to pipeline artifact.
+
+### 3. Provision Infrastructure
 - **AWS:** Launch EC2 instances, configure security groups, and attach public IPs.
 - **Azure:** Provision Virtual Machines, associate NSGs, and allocate public IPs.
 
-### 3. Configure CI/CD Pipeline
-- **Pipeline 1:** Build and package the ASP.NET application.
-- **Pipeline 2:** Run Terraform to provision infrastructure and deploy the app.
+### 4. Configure CI/CD Pipeline
+- **Build Pipeline (Microsoft hosted agent):** Build and package the ASP.NET application.
+- **Terraform Pipeline (Microsoft hosted agent):** Run Terraform to provision infrastructure.
+- **Self-hosted Ansible Pipeline (Self hosted agent):** Configure remote nodes, install sdks and runtime, deploy app running as a service in the background.
 
-### 4. Use Ansible for Configuration Management
+### 5. Use Ansible for Configuration Management
 - Dynamic inventory creation using Python scripts.
 - Add VMs to the known hosts file for secure SSH communication.
 
-### 5. Application Deployment
+### 6. Application Deployment
 - Deploy the ASP.NET Core app on VMs using Ansible playbooks.
 - Expose the application on **port 5000** for public access.
 
@@ -102,6 +109,8 @@ This project solves the problem by:
 - Resolving SSH known hosts conflicts.
 - Managing Terraform state files across multiple cloud platforms.
 - Debugging Ansible dynamic inventory scripts.
+- Setting up passwordless authentication for ansible on remote nodes using Microsoft hosted agents.
+- Finding a way to run application as a service in the background and not letting the pipeline run for a long time as the application is running in the foreground. 
 
 ## Learnings 🌿
 - Importance of using secure secrets management.
