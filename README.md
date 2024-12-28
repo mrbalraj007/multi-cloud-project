@@ -3,15 +3,11 @@
 ## **Introduction** 🌐
 This project demonstrates the **automation of infrastructure provisioning** and **application deployment** across **AWS** and **Azure** using **Terraform** and **Ansible**. The goal is to enable seamless deployment of an **ASP.NET Core application** across multiple cloud platforms, leveraging robust **CI/CD pipelines** in **Azure DevOps**.
 
----
-
 ## **Problem Statement** 🤔
 Organizations face several challenges when deploying applications across cloud providers like **AWS** and **Azure**:  
 - Ensuring consistent infrastructure management.  
 - Handling dynamic inventory updates for scaling and maintenance.  
 - Implementing secure and automated deployment processes.
-
----
 
 ## **Solution** 💡
 This project addresses these challenges by:  
@@ -19,16 +15,12 @@ This project addresses these challenges by:
 2. **Leveraging Ansible** to automate server configurations and application deployment.  
 3. **Integrating CI/CD pipelines** with Azure DevOps for seamless workflows and deployments.
 
----
-
 ## **Features** ✨
 - **Infrastructure-as-Code (IaC):** Automated provisioning of cloud resources using Terraform.  
 - **Cross-Cloud Deployment:** Simultaneous deployment to AWS and Azure.  
 - **Configuration Management:** Dynamic inventory creation and server configuration via Ansible.  
 - **CI/CD Integration:** Automated end-to-end pipelines in Azure DevOps.  
 - **Secure & Scalable:** Uses SSH for secure communication and enables effortless scalability.
-
----
 
 ## **Tools & Technologies Used** 🛠️
 
@@ -67,15 +59,11 @@ This project addresses these challenges by:
   - Runs on **port 5000** on AWS and Azure instances.  
   - Deployed as a Linux service for high availability.
 
----
-
 ## **Architecture Diagrams** 🖼️
 
 ### **High-Level Design**  
 Illustrates CI/CD integration with multi-cloud infrastructure.  
 <img width="781" alt="2024-12-28 00_10_16-Multi-cloud drawio (3)" src="https://github.com/user-attachments/assets/c7065e0a-45d7-46f4-96ce-2d55d0bb85da" />
-
----
 
 ## **Prerequisites** ✅
 - **Azure DevOps Account:** For managing CI/CD pipelines.  
@@ -84,8 +72,6 @@ Illustrates CI/CD integration with multi-cloud infrastructure.
 - **Terraform & Ansible:** Installed locally for testing.  
 - **SSH Key Pair:** For secure remote connections.  
 - **Azure DevOps Self-Hosted Agent:** To execute Ansible tasks on remote nodes.
-
----
 
 ## **Step-by-Step Guide** 🪜
 
@@ -118,8 +104,6 @@ Illustrates CI/CD integration with multi-cloud infrastructure.
   - Deploy the ASP.NET Core application.  
   - Configure it to run as a Linux service on **port 5000**.
 
----
-
 ## **How It Works** 🛠️
 1. **CI/CD Pipelines:**  
    - Code is pushed to the `main` branch.  
@@ -136,15 +120,11 @@ Illustrates CI/CD integration with multi-cloud infrastructure.
 4. **Dynamic Inventory:**  
    - Automates IP discovery and SSH key management for seamless scaling.
 
----
-
 ## **Challenges Faced** 💪
 - Managing Terraform state files in a multi-cloud environment.  
 - Debugging Ansible scripts for dynamic inventory creation.  
 - Establishing passwordless SSH authentication on ephemeral agents.  
 - Configuring the application to run as a background service for production readiness.  
-
----
 
 ## **Learnings** 🌿
 - Importance of **secure secrets management** in CI/CD pipelines.  
@@ -152,12 +132,9 @@ Illustrates CI/CD integration with multi-cloud infrastructure.
 - Leveraging **Azure Entra ID** for app registration and RBAC.  
 - Benefits of self-hosted agents for running Ansible tasks.  
 
----
-
 ## **Potential Enhancements** 🚀
 - Add Kubernetes support for containerized application deployment.  
 - Implement monitoring with tools like **Prometheus** and **Grafana**.  
 - Use a load balancer for efficient traffic distribution.  
 - Explore cost optimization with **FinOps** practices.
-
 ---
