@@ -63,7 +63,7 @@ This project addresses these challenges by:
 
 ### **High-Level Design**  
 Illustrates CI/CD integration with multi-cloud infrastructure.  
-<img width="781" alt="2024-12-28 00_10_16-Multi-cloud drawio (3)" src="https://github.com/user-attachments/assets/c7065e0a-45d7-46f4-96ce-2d55d0bb85da" />
+<img width="653" alt="2024-12-31 20_51_25-Multi-cloud drawio (5)" src="https://github.com/user-attachments/assets/608a64c8-007f-4497-931f-9a9e52f0b6e8" />
 
 ## **Prerequisites** ✅
 - **Azure DevOps Account:** For managing CI/CD pipelines.  
