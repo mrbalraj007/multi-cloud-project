@@ -1,7 +1,7 @@
 resources:
   pipelines:
   - pipeline: Terraform
-    source: Terraform  # use the name of the CI pipeline you just created
+    source: Terraform 
     trigger: true
 
 pool:
