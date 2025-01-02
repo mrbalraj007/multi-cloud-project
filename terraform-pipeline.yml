@@ -34,18 +34,6 @@ stages:
           cp $(DownloadPublicKey.secureFilePath) $(Agent.TempDirectory)/keys/id_rsa.pub
         displayName: 'Prepare Public Key'
 
-      - task: DownloadSecureFile@1
-        displayName: 'Download Private Key'
-        name: DownloadPrivateKey
-        inputs:
-          secureFile: 'id_rsa' # Name of the uploaded secure file
-
-      - script: |
-          mkdir -p ~/.ssh
-          cp $(DownloadPrivateKey.secureFilePath) ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-        displayName: 'Prepare Private Key'  
-
       - task: TerraformCLI@2
         displayName: 'Terraform init'
         inputs:
