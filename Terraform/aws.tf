@@ -11,7 +11,7 @@ resource "aws_key_pair" "pubkey" {
 # VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.1.0.0/16"
-  name = "Multi-Cloud_Project_VPC"
+  # name = "Multi-Cloud_Project_VPC"
 }
 
 # Subnet
