@@ -11,18 +11,20 @@ resource "aws_key_pair" "pubkey" {
 # VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.1.0.0/16"
+  name = "Multi-Cloud_Project_VPC"
 }
 
 # Subnet
 resource "aws_subnet" "my_subnet" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.1.0.0/24"
+  name = Multi-Cloud_Project_subnet 
 }
 
 # Security Group
 resource "aws_security_group" "my_sg" {
   name        = "allow_traffic"
-  description = "Allow inbound traffic"
+  description = "Allow inbound traffic and Managed by Terraform"
 
   ingress {
     description = "SSH"
