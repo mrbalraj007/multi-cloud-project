@@ -49,11 +49,25 @@ resource "aws_security_group" "my_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+# Data source to fetch the latest Ubuntu AMI
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"] # Canonical
 
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
 # EC2 Instances
 resource "aws_instance" "my_instances" {
   count                  = 2  # Provision 2 EC2 instances
-  ami                    = "ami-0e2c8caa4b6378d8c"  # Replace with your desired AMI
+    ami                    = data.aws_ami.ubuntu.id     #"ami-0e2c8caa4b6378d8c"  # Replace with your desired AMI
   instance_type          = "t2.micro"
   associate_public_ip_address = true
   security_groups        = [aws_security_group.my_sg.name]
