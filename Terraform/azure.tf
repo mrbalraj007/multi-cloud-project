@@ -21,7 +21,7 @@ resource "azurerm_resource_group" "my_rg" {
 terraform {
   backend "azurerm" {
     resource_group_name   = "automating-stuff-rg"
-    storage_account_name  = "automatingstuffsairaj"
+    storage_account_name  = "automatingstuff25022025"
     container_name        = "tfstate"
     key                   = "terraform.tfstate"
   }
