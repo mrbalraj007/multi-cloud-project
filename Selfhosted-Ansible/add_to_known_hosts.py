@@ -3,6 +3,8 @@ import subprocess
 import os
 
 INVENTORY_FILE = "dynamic_inventory.json"
+
+# Need to define a user as per your machine.
 KNOWN_HOSTS_FILE = "/home/sairaj/.ssh/known_hosts"
 
 def add_to_known_hosts(inventory_file):
