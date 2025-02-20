@@ -32,11 +32,33 @@
         path: /var/www/myapp/dotnet-application.zip
         state: absent
 
-    - name: Install .NET runtime (if required)
+    - name: Install prerequisites
       apt:
-        name: 'dotnet-sdk-8.0'
+        name: ["wget", "apt-transport-https"]
         state: present
         update_cache: yes
+
+    - name: Add Microsoft package signing key
+      shell: |
+        wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+        sudo dpkg -i packages-microsoft-prod.deb
+      args:
+        creates: /etc/apt/sources.list.d/microsoft-prod.list
+
+    - name: Update package lists
+      apt:
+        update_cache: yes
+
+    - name: Install .NET SDK 8.0
+      apt:
+        name: dotnet-sdk-8.0
+        state: present
+
+    # - name: Install .NET runtime (if required)
+    #   apt:
+    #     name: 'dotnet-sdk-8.0' #'dotnet-sdk-8.0'
+    #     state: present
+    #     update_cache: yes
 
     - name: Copy the systemd service file
       copy:
