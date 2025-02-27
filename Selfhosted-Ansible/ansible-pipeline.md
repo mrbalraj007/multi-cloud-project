@@ -1,3 +1,4 @@
+```sh
 resources:
   pipelines:
   - pipeline: Terraform
@@ -50,3 +51,4 @@ steps:
       # Step 4: Run Ansible playbook with dynamic inventory
       ansible-playbook -i dynamic_inventory.json app-deploy-playbook.yaml -vvv
     displayName: "Run Ansible Playbook with Terraform State-Based Inventory"
+```
